@@ -12,4 +12,15 @@ COPY config/besu-config.toml ./besu-config.toml
 EXPOSE 8545 8546 30303 30303/udp
 
 # Command to run the Besu node
-CMD ["/opt/besu/bin/besu", "--config-file=/opt/besu/besu-config.toml"]
+# CMD ["/opt/besu/bin/besu", "--config-file=/opt/besu/besu-config.toml"]
+
+# Default command to run Besu
+CMD [
+  "besu",
+  "--data-path=/var/lib/besu",
+  "--genesis-file=/config/genesis.json",
+  "--config-file=/config/besu-config.toml",
+  "--rpc-http-enabled",
+  "--rpc-ws-enabled",
+  "--metrics-enabled"
+]
