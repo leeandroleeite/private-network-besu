@@ -1,0 +1,27 @@
+# Network Configuration
+network-id = 1337
+sync-mode = "FAST"
+data-path = "/var/lib/besu"
+
+# Mining Configuration
+miner-enabled = false
+min-gas-price = 0
+
+# Logging
+logging = "INFO"
+
+# RPC Endpoints
+rpc-http-enabled = true
+rpc-http-port = 8545
+rpc-http-cors-origins = ["*"]
+rpc-http-api = ["ADMIN", "ETH", "NET", "WEB3"]
+
+# WebSocket Endpoints
+rpc-ws-enabled = true
+rpc-ws-port = 8546
+rpc-ws-api = ["ADMIN", "ETH", "NET", "WEB3"]
+
+# Metrics
+metrics-enabled = true
+metrics-port = 9545
+metrics-host = "0.0.0.0"
