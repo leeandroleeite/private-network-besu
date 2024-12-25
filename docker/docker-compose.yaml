@@ -1,0 +1,53 @@
+version: "3.8"
+services:
+  besu-node1:
+    build: .
+    container_name: besu-node1
+    volumes:
+      - besu-data1:/var/lib/besu
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+      - "30303:30303"
+      - "30303:30303/udp"
+    networks:
+      - besu-net
+    command: >
+      --genesis-file=/opt/besu/genesis.json \
+      --node-private-key-file=/opt/besu/key1.priv \
+      --rpc-http-enabled \
+      --rpc-http-host=0.0.0.0 \
+      --rpc-http-port=8545 \
+      --rpc-ws-enabled \
+      --rpc-ws-host=0.0.0.0 \
+      --rpc-ws-port=8546
+
+  besu-node2:
+    build: .
+    container_name: besu-node2
+    volumes:
+      - besu-data2:/var/lib/besu
+    ports:
+      - "8547:8545"
+      - "8548:8546"
+      - "30304:30303"
+      - "30304:30303/udp"
+    networks:
+      - besu-net
+    command: >
+      --genesis-file=/opt/besu/genesis.json \
+      --node-private-key-file=/opt/besu/key2.priv \
+      --rpc-http-enabled \
+      --rpc-http-host=0.0.0.0 \
+      --rpc-http-port=8545 \
+      --rpc-ws-enabled \
+      --rpc-ws-host=0.0.0.0 \
+      --rpc-ws-port=8546
+
+volumes:
+  besu-data1:
+  besu-data2:
+
+networks:
+  besu-net:
+    driver: bridge
