@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: besu-node
+  labels:
+    app: besu
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: besu
+  template:
+    metadata:
+      labels:
+        app: besu
+    spec:
+      containers:
+      - name: besu
+        image: hyperledger/besu:latest
+        ports:
+        - containerPort: 8545 # RPC HTTP
+        - containerPort: 8546 # RPC WebSocket
+        - containerPort: 9545 # Metrics
+        volumeMounts:
+        - name: besu-data
+          mountPath: /var/lib/besu
+        command: [
+          "besu",
+          "--data-path=/var/lib/besu",
+          "--genesis-file=/config/genesis.json",
+          "--config-file=/config/besu-config.toml",
+          "--rpc-http-enabled",
+          "--rpc-ws-enabled",
+          "--metrics-enabled"
+        ]
+        env:
+        - name: BESU_LOGGING
+          value: INFO
+      volumes:
+      - name: besu-data
+        emptyDir: {}
